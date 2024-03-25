@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class DiceRoll : MonoBehaviour
 {
-    Rigidbody rb;
-    bool hasLanded;
-    bool thrown;
+    [SerializeField] Rigidbody rb;
+     [SerializeField] bool hasLanded;
+    [SerializeField] bool thrown;
+
 
     Vector3 startPosition;
 
@@ -27,6 +28,8 @@ public class DiceRoll : MonoBehaviour
         {
             RollDice();
         }
+
+
 
         if (rb.IsSleeping() && !hasLanded && thrown)
         {
