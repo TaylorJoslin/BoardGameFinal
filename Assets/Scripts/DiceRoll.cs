@@ -8,12 +8,7 @@ public class DiceRoll : MonoBehaviour
      [SerializeField] bool hasLanded;
     [SerializeField] bool thrown;
 
-    [SerializeField] GameObject diceImage1;
-    [SerializeField] GameObject diceImage2;
-    [SerializeField] GameObject diceImage3;
-    [SerializeField] GameObject diceImage4;
-    [SerializeField] GameObject diceImage5;
-    [SerializeField] GameObject diceImage6;
+    
 
 
     Vector3 startPosition;
@@ -28,12 +23,7 @@ public class DiceRoll : MonoBehaviour
         startPosition = transform.position;
         rb.useGravity = false;
 
-        diceImage1.SetActive(false);
-        diceImage2.SetActive(false);
-        diceImage3.SetActive(false);
-        diceImage4.SetActive(false);
-        diceImage5.SetActive(false);
-        diceImage6.SetActive(false);
+        
     }
 
     private void Update()

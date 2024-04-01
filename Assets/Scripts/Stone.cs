@@ -42,6 +42,12 @@ public class Stone : MonoBehaviour
 
     }
 
+    public void TakeTurn()
+    {
+        // Implement player's turn logic here
+        Debug.Log("Taking turn...");
+    }
+
     public void StartRoll()
     {
         Dice1.RollDice();

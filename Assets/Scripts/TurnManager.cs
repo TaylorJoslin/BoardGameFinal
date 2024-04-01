@@ -1,16 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.XR;
 
 public class TurnManager : MonoBehaviour
 {
-    public List<Player> players;
+    public List<Stone> players;
     private int currentPlayerIndex = 0;
 
+    [System.Obsolete]
     void Start()
     {
         // Initialize players list with references to player objects
-        players = new List<Player>((IEnumerable<Player>)FindFirstObjectByType<Player>());
+        players = new List<Stone>(FindObjectsOfType<Stone>());
         
         
         StartTurn();
@@ -18,8 +21,8 @@ public class TurnManager : MonoBehaviour
 
     void StartTurn()
     {
-        Player currentPlayer = players[currentPlayerIndex];
-        Debug.Log("Player " + currentPlayer.name + "'s turn");
+        Stone currentPlayer = players[currentPlayerIndex];
+        Debug.Log( currentPlayer.name + "'s turn");
         // Implement any UI updates to indicate current player's turn
         currentPlayer.TakeTurn(); // Call function to handle player's turn actions
     }
