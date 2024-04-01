@@ -11,16 +11,63 @@ public class Stone : MonoBehaviour
     public int steps;
     bool isMoving;
 
+    public GameObject MoveButton;
+    public GameObject RollDiceButton;
+
+    public DiceRoll Dice1;
+    public DiceRoll Dice2;
+
+    private void Start()
+    {
+        MoveButton.SetActive(false);
+    }
+
     void Update()
     {
         //roll the dice "add my dice script"
-        if (Input.GetMouseButtonDown(0) && !isMoving)
-        {
-            steps = Random.Range(1,7);
-            Debug.Log ("Dice Rolled " + steps);
+        //if (Input.GetMouseButtonDown(0) && !isMoving)
+        //{
+        //    Dice1.RollDice();
+        //    Dice2.RollDice();
 
-            StartCoroutine(Move());
-        }
+        //    steps = Dice1.diceValue + Dice2.diceValue;
+
+        //    //steps = Random.Range(1,7);
+
+
+        //    StartCoroutine(Move());
+        //    Debug.Log("Player 1 moves " + steps + " spaces");
+        //}
+
+
+    }
+
+    public void StartRoll()
+    {
+        Dice1.RollDice();
+        Dice2.RollDice();
+
+        //steps = Dice1.diceValue + Dice2.diceValue;
+
+        //steps = Random.Range(1,7);
+
+        MoveButton.SetActive(true);
+        RollDiceButton.SetActive(false);
+
+        //StartCoroutine(Move());
+        
+    }
+
+    public void MovePlayer1()
+    {
+        steps = Dice1.diceValue + Dice2.diceValue;
+        StartCoroutine(Move());
+        Dice1.RollDice();
+        Dice2.RollDice();
+       
+        MoveButton.SetActive(false);
+        // Dice1.Reset();
+        //Dice2.Reset();
     }
 
     IEnumerator Move()
@@ -44,7 +91,7 @@ public class Stone : MonoBehaviour
 
             yield return new WaitForSeconds(0.1f);
             steps--;
-            
+            Debug.Log(steps + " spaces to go");
         }
 
 
