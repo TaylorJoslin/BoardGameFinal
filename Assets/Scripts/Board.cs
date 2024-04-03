@@ -77,4 +77,39 @@ public class Board : MonoBehaviour
     {
         return endPos !=(tokenToMove.transform.position = Vector3.MoveTowards(tokenToMove.transform.position, endPos, speed * Time.deltaTime));
     }
+
+    //------------------------------------------------------------------------------------------------------------------------
+    IEnumerator WarpPlayer(int steps, Player player)
+    {
+        int stepsLeft = steps;
+        GameObject tokenToMove = player.MyToken;
+        int indexOnboard = route.IndexOf(player.MyTileNode); //what node the player is on
+
+        while (stepsLeft > 0)
+        {
+            indexOnboard++;
+
+            //get start and end position
+            Vector3 startPos = tokenToMove.transform.position;
+            Vector3 endPos = route[indexOnboard].transform.position;
+
+            //perform move
+            while (MoveToNextNode(tokenToMove, endPos, 15))
+            {
+                yield return null;
+            }
+
+
+
+            stepsLeft--;
+
+        }
+        //set new node on current player
+        player.SetMyCurrentNode(route[indexOnboard]);
+
+
+
+    }
+
+    //------------------------------------------------------------------------------------------------------------------------
 }

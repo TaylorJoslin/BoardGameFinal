@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 
 public enum TileNodeType
@@ -18,6 +20,13 @@ public class TileNode : MonoBehaviour
 
     public TileNodeType tilenodetype;
     [SerializeField] internal new string name;
+
+
+    private GameManager gameManager;
+    private Player player;
+    
+
+    private List<TileNode> route;
 
     private void OnValidate()
     {
@@ -66,9 +75,11 @@ public class TileNode : MonoBehaviour
                 //Warp script
                 if (!playerIsHuman)//AI
                 {
-                    //WarpPlayer();
-
+                    testWarp();
                     
+                    //DoWarp(8, gameManager.playerList[gameManager.currentPlayer]);
+
+                    //StartCoroutine(MovePlayerInSteps(steps, player));
                     //player.SetMyCurrentNode(route[indexOnboard]);
                 }
                 else//Human
@@ -113,11 +124,55 @@ public class TileNode : MonoBehaviour
         GameManager.instance.SwitchPlayer();
     }
 
-    void WarpPlayer(int steps, Player player)
+    void DoWarp(int steps, Player player)
     {
-       
-        
-        //int indexOnboard = route.IndexOf(player.MyTileNode); //what node the player is on
-        //player.SetMyCurrentNode(route[indexOnboard]);
+        StartCoroutine(WarpPlayer(steps, player));
+    }
+
+    void testWarp()
+    {
+        GameObject tokenToMove = player.MyToken;
+        tokenToMove.transform.position = gameManager.teleportDestination.position;
+    }
+
+    //------------------------------------------------------------------------------------------------------------------------
+
+    IEnumerator WarpPlayer(int steps, Player player)
+    {
+        int stepsLeft = steps;
+        GameObject tokenToMove = player.MyToken;
+        int indexOnboard = route.IndexOf(player.MyTileNode); //what node the player is on
+
+        while (stepsLeft > 0)
+        {
+            indexOnboard++;
+
+            //get start and end position
+            Vector3 startPos = tokenToMove.transform.position;
+            Vector3 endPos = route[indexOnboard].transform.position;
+
+            //perform move
+            while (MoveToNextNode(tokenToMove, endPos, 15))
+            {
+                yield return null;
+            }
+
+            
+
+            stepsLeft--;
+
+        }
+        //set new node on current player
+        player.SetMyCurrentNode(route[indexOnboard]);
+
+
+
+    }
+
+    //------------------------------------------------------------------------------------------------------------------------
+
+    bool MoveToNextNode(GameObject tokenToMove, Vector3 endPos, float speed)
+    {
+        return endPos != (tokenToMove.transform.position = Vector3.MoveTowards(tokenToMove.transform.position, endPos, speed * Time.deltaTime));
     }
 }

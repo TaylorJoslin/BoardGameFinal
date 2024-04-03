@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -8,8 +9,8 @@ public class GameManager : MonoBehaviour
    public static GameManager instance;
 
     [SerializeField] Board gameBoard;
-    [SerializeField] List<Player> playerList = new List<Player>();
-    [SerializeField] int currentPlayer;
+    public List<Player> playerList = new List<Player>();
+    public int currentPlayer;
     [Header("Game Settings")]
     [SerializeField] int startMoney = 200;
     [SerializeField] int goMoney = 300;
@@ -17,6 +18,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject playerInfoPrefab;
     [SerializeField] Transform playerPanel; //for player info prefab
     [SerializeField] List<GameObject> playerTokenList = new List<GameObject>();
+
+    public Transform teleportDestination;
 
     //dice info
     int[] rolledDice;
@@ -63,8 +66,8 @@ public class GameManager : MonoBehaviour
         //reset last roll
         rolledDice = new int[2];
         //store rolled dice
-        rolledDice[0] = Random.Range(1, 7); //will need code to wait for physical dice
-        rolledDice[1] = Random.Range(1, 7);
+        rolledDice[0] = 1;//Random.Range(1, 7); //will need code to wait for physical dice
+        rolledDice[1] = 2;//Random.Range(1, 7);
         Debug.Log("rolled dice are: " + rolledDice[0] + " & " + rolledDice[1]);
         //check for double
         rolledADouble = rolledDice[0] == rolledDice[1];
@@ -103,4 +106,8 @@ public class GameManager : MonoBehaviour
 
         //IF HUMAN SHOW UI
     }
+
+    
+
+
 }

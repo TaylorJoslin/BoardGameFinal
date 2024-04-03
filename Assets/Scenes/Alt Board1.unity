@@ -3643,11 +3643,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameBoard: {fileID: 908050551}
   playerList:
-  - playertype: 0
+  - playertype: 1
     name: Taylor
     myToken: {fileID: 0}
     myHeroes: []
-  - playertype: 0
+  - playertype: 1
     name: Killa
     myToken: {fileID: 0}
     myHeroes: []
@@ -3658,6 +3658,7 @@ MonoBehaviour:
   playerPanel: {fileID: 471076105}
   playerTokenList:
   - {fileID: 2223733017068424699, guid: 894c539dfc60e45438ca0e1415784b6a, type: 3}
+  teleportDestination: {fileID: 547501057}
 --- !u!1001 &2091906081
 PrefabInstance:
   m_ObjectHideFlags: 0
