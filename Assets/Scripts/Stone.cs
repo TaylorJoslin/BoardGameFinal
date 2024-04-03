@@ -11,8 +11,8 @@ public class Stone : MonoBehaviour
     public int steps;
     bool isMoving;
 
-    public GameObject MoveButton;
-    public GameObject RollDiceButton;
+    public GameObject MoveButton, p2MoveButton;
+    public GameObject RollDiceButton, p2RollDice;
 
     public DiceRoll Dice1;
     public DiceRoll Dice2;
@@ -20,6 +20,8 @@ public class Stone : MonoBehaviour
     private void Start()
     {
         MoveButton.SetActive(false);
+        p2RollDice.SetActive(false);
+        p2MoveButton.SetActive(false);
     }
 
     void Update()
@@ -72,8 +74,35 @@ public class Stone : MonoBehaviour
         Dice2.RollDice();
        
         MoveButton.SetActive(false);
-        // Dice1.Reset();
-        //Dice2.Reset();
+        p2RollDice.SetActive(true);
+    }
+
+    public void P2StartRoll()
+    {
+        Dice1.RollDice();
+        Dice2.RollDice();
+
+        //steps = Dice1.diceValue + Dice2.diceValue;
+
+        //steps = Random.Range(1,7);
+
+        p2MoveButton.SetActive(true);
+        p2RollDice.SetActive(false);
+
+        //StartCoroutine(Move());
+
+    }
+
+
+    public void MovePlayer2()
+    {
+        steps = Dice1.diceValue + Dice2.diceValue;
+        StartCoroutine(Move());
+        Dice1.RollDice();
+        Dice2.RollDice();
+
+        p2MoveButton.SetActive(false);
+        RollDiceButton.SetActive(true);
     }
 
     IEnumerator Move()
