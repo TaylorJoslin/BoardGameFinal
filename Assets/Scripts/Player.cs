@@ -15,6 +15,8 @@ public class Player
     public string name;
     int money;
     TileNode currentnode;
+    bool warpPlayer;
+
     [SerializeField] GameObject myToken; //token player plays with
     [SerializeField] List<Heroes> myHeroes = new List<Heroes>();
 
@@ -24,6 +26,10 @@ public class Player
     //return info
     public GameObject MyToken => myToken; //gets player token
     public TileNode MyTileNode => currentnode; //gets player current tile
+
+    //message system
+    public delegate void UpdateMessage(string message);
+    public static UpdateMessage OnUpdateMessage;
 
     public void Inititalize(TileNode startNode, int startMoney, PlayerInfo info, GameObject token)
     {
@@ -48,5 +54,111 @@ public class Player
     {
         money+= amount;
         myInfo.SetPlayerCash(money);
+    }
+
+    //----------------Warp Player-----------------
+    public void Warp()
+    {
+
+        
+
+        warpPlayer = true;
+
+        if (currentnode == Board.instance.route[3])
+        {
+            int randomWarp = Random.Range(0, 3);
+
+            switch (randomWarp)
+            {
+                case 0:
+                    myToken.transform.position = Board.instance.route[11].transform.position;
+                    currentnode = Board.instance.route[11];
+                    break;
+                case 1:
+                    myToken.transform.position = Board.instance.route[19].transform.position;
+                    currentnode = Board.instance.route[19];
+                    break;
+                case 2:
+                    myToken.transform.position = Board.instance.route[27].transform.position;
+                    currentnode = Board.instance.route[27];
+                    break;
+                default:
+                           Debug.Log("Invalid something happened");
+                           break;
+
+            }
+        }
+
+        else if (currentnode == Board.instance.route[11])
+        {
+            int randomWarp = Random.Range(0, 2);
+
+            switch (randomWarp)
+            {
+                case 0:
+                    myToken.transform.position = Board.instance.route[3].transform.position;
+                    currentnode = Board.instance.route[3];
+                    break;
+                case 1:
+                    myToken.transform.position = Board.instance.route[19].transform.position;
+                    currentnode = Board.instance.route[19];
+                    break;
+                case 2:
+                    myToken.transform.position = Board.instance.route[27].transform.position;
+                    currentnode = Board.instance.route[27];
+                    break;
+
+            }
+        }
+
+        else if (currentnode == Board.instance.route[19])
+        {
+            int randomWarp = Random.Range(0, 2);
+
+            switch (randomWarp)
+            {
+                case 0:
+                    myToken.transform.position = Board.instance.route[11].transform.position;
+                    currentnode = Board.instance.route[11];
+                    break;
+                case 1:
+                    myToken.transform.position = Board.instance.route[3].transform.position;
+                    currentnode = Board.instance.route[3];
+                    break;
+                case 2:
+                    myToken.transform.position = Board.instance.route[27].transform.position;
+                    currentnode = Board.instance.route[27];
+                    break;
+
+            }
+        }
+
+        else if (currentnode == Board.instance.route[27])
+        {
+            int randomWarp = Random.Range(0, 2);
+
+            switch (randomWarp)
+            {
+                case 0:
+                    myToken.transform.position = Board.instance.route[11].transform.position;
+                    currentnode = Board.instance.route[11];
+                    break;
+                case 1:
+                    myToken.transform.position = Board.instance.route[19].transform.position;
+                    currentnode = Board.instance.route[19];
+                    break;
+                case 2:
+                    myToken.transform.position = Board.instance.route[3].transform.position;
+                    currentnode = Board.instance.route[3];
+                    break;
+
+            }
+        }
+
+    }
+
+    public void MoveBackwards3()
+    {
+        Board.instance.MovePlayertoken(-3, this); //moves the player backwards (x steps, current player)
     }
 }

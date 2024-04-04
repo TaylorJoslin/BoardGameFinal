@@ -1,10 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
-public class Board : MonoBehaviour
+public class Board : MonoBehaviour    
 {
+    public static Board instance;
+
     public List<TileNode> route = new List<TileNode> ();
+
+
+    [System.Serializable]
+    public class WarpSet
+    {
+        public List<TileNode> nodesInSetList = new List<TileNode> ();
+    }
+
+
+    [SerializeField] List<WarpSet> WarpSetList = new List<WarpSet> ();
+
+    private void Awake()
+    {
+        instance = this;
+    }
 
     void OnValidate()
     {
@@ -41,30 +59,59 @@ public class Board : MonoBehaviour
         GameObject tokenToMove = player.MyToken;
         int indexOnboard = route.IndexOf(player.MyTileNode); //what node the player is on
         bool moveOverStart = false;
+        bool isMovingForward = steps > 0;
 
-        while (stepsLeft > 0)
+        
+        if (isMovingForward) //controls moving current player forward
         {
-            indexOnboard++;
-            //is this over start
-            if(indexOnboard>route.Count - 1)
+            while (stepsLeft > 0)
             {
-                indexOnboard = 0;
-                moveOverStart = true;
-            }
-            //get start and end position
-            Vector3 startPos = tokenToMove.transform.position;
-            Vector3 endPos = route[indexOnboard].transform.position;
+                indexOnboard++;
+                //is this over start allows to loop around the board
+                if (indexOnboard > route.Count - 1)
+                {
+                    indexOnboard = 0;
+                    moveOverStart = true;
+                }
+                //get start and end position
+                Vector3 startPos = tokenToMove.transform.position;
+                Vector3 endPos = route[indexOnboard].transform.position;
 
-            //perform move
-            while (MoveToNextNode(tokenToMove, endPos, 15))
-            {
-                yield return null;
+                //perform move
+                while (MoveToNextNode(tokenToMove, endPos, 50))
+                {
+                    yield return null;
+                }
+                stepsLeft--;
             }
-            stepsLeft--;
+            
+        } 
+        else //contrls moving current player backwards
+        {
+            while (stepsLeft < 0)
+            {
+                indexOnboard--;
+                //is this moving over start backwards
+                if (indexOnboard < 0)
+                {
+                    indexOnboard = route.Count - 1;
+                    
+                }
+                //get start and end position
+                //Vector3 startPos = tokenToMove.transform.position;
+                Vector3 endPos = route[indexOnboard].transform.position;
+
+                //perform move
+                while (MoveToNextNode(tokenToMove, endPos, 50))
+                {
+                    yield return null;
+                }
+                stepsLeft++;
+            }
         }
 
         //get start money
-        if(moveOverStart)
+        if (moveOverStart)
         {
             //add money to player for passing start
             player.CollectMoney(GameManager.instance.GetGoMoney);
@@ -78,38 +125,5 @@ public class Board : MonoBehaviour
         return endPos !=(tokenToMove.transform.position = Vector3.MoveTowards(tokenToMove.transform.position, endPos, speed * Time.deltaTime));
     }
 
-    //------------------------------------------------------------------------------------------------------------------------
-    IEnumerator WarpPlayer(int steps, Player player)
-    {
-        int stepsLeft = steps;
-        GameObject tokenToMove = player.MyToken;
-        int indexOnboard = route.IndexOf(player.MyTileNode); //what node the player is on
-
-        while (stepsLeft > 0)
-        {
-            indexOnboard++;
-
-            //get start and end position
-            Vector3 startPos = tokenToMove.transform.position;
-            Vector3 endPos = route[indexOnboard].transform.position;
-
-            //perform move
-            while (MoveToNextNode(tokenToMove, endPos, 15))
-            {
-                yield return null;
-            }
-
-
-
-            stepsLeft--;
-
-        }
-        //set new node on current player
-        player.SetMyCurrentNode(route[indexOnboard]);
-
-
-
-    }
-
-    //------------------------------------------------------------------------------------------------------------------------
+   
 }

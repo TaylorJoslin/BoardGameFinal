@@ -14,12 +14,17 @@ public class GameManager : MonoBehaviour
     [Header("Game Settings")]
     [SerializeField] int startMoney = 200;
     [SerializeField] int goMoney = 300;
+    public float secondsBetweenTurns = 3;
     [Header("PlayerInfo")]
     [SerializeField] GameObject playerInfoPrefab;
     [SerializeField] Transform playerPanel; //for player info prefab
     [SerializeField] List<GameObject> playerTokenList = new List<GameObject>();
+    [Header("Audio")]
+    
+    public AudioSource WarpSound;
 
-    public Transform teleportDestination;
+
+
 
     //dice info
     int[] rolledDice;
@@ -28,6 +33,9 @@ public class GameManager : MonoBehaviour
     //pass start to get money
     public int GetGoMoney => goMoney;
 
+    //message system
+    public delegate void UpdateMessage(string message);
+    public static UpdateMessage OnUpdateMessage;
 
     void Awake()
     {
@@ -63,28 +71,56 @@ public class GameManager : MonoBehaviour
 
     public void Rolldice() //press button for human input or auto for ai
     {
+        bool allowdToMove = true;
+
         //reset last roll
         rolledDice = new int[2];
         //store rolled dice
-        rolledDice[0] = 1;//Random.Range(1, 7); //will need code to wait for physical dice
-        rolledDice[1] = 2;//Random.Range(1, 7);
+        rolledDice[0] = Random.Range(1, 7);//Random.Range(1, 7); //will need code to wait for physical dice
+        rolledDice[1] = Random.Range(1, 7);//Random.Range(1, 7);
         Debug.Log("rolled dice are: " + rolledDice[0] + " & " + rolledDice[1]);
+
+        
+
         //check for double
-        rolledADouble = rolledDice[0] == rolledDice[1];
+        //rolledADouble = rolledDice[0] == rolledDice[1];
+
         //3 doubles in a row -> end turn
 
+        
+            //playerList.[currentPlayer]
+
+       
+
         //move anyhow if allowed
-        StartCoroutine(DelayBeforeMove(rolledDice[0] + rolledDice[1]));
+        if (allowdToMove)
+        {
+            OnUpdateMessage.Invoke(playerList[currentPlayer].name + " has rolled <color=red>" + rolledDice[0] + "</color> and a <color=red>" + rolledDice[1] + "</color>");
+            StartCoroutine(DelayBeforeMove(rolledDice[0] + rolledDice[1]));
+        }
+        else
+        {
+            OnUpdateMessage.Invoke(playerList[currentPlayer].name + " Turn has ended");
+            StartCoroutine(DelayBetweenSwitchPlayer());
+        }
+       
+
         //show or hide ui
 
     } 
 
     IEnumerator DelayBeforeMove(int rolledDice)
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(secondsBetweenTurns);
         //if we are allowed to move
         gameBoard.MovePlayertoken(rolledDice, playerList[currentPlayer]);
         //else we switch
+    }
+
+    IEnumerator DelayBetweenSwitchPlayer()
+    {
+        yield return new WaitForSeconds(secondsBetweenTurns);
+        SwitchPlayer();
     }
 
     public void SwitchPlayer()

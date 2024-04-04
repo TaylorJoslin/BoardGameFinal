@@ -18,6 +18,10 @@ public class TileNode : MonoBehaviour
 {
     public Player owner;
 
+    //message system
+    public delegate void UpdateMessage(string message);
+    public static UpdateMessage OnUpdateMessage;
+
     public TileNodeType tilenodetype;
     [SerializeField] internal new string name;
 
@@ -41,6 +45,7 @@ public class TileNode : MonoBehaviour
     public void PlayerLandedOnNode(Player currentplayer)
     {
         bool playerIsHuman = currentplayer.playertype == Player.PlayerType.Human;
+        bool continueTurn = true;
 
         //check for node type then act
         switch (tilenodetype)
@@ -50,7 +55,9 @@ public class TileNode : MonoBehaviour
                 //battle script
                 if(!playerIsHuman)//AI
                 {
-                    
+                    //currentplayer.MoveBackwards3();
+                    //continueTurn = false;
+
                 }else//Human
                 {
 
@@ -75,12 +82,10 @@ public class TileNode : MonoBehaviour
                 //Warp script
                 if (!playerIsHuman)//AI
                 {
-                    testWarp();
-                    
-                    //DoWarp(8, gameManager.playerList[gameManager.currentPlayer]);
-
-                    //StartCoroutine(MovePlayerInSteps(steps, player));
-                    //player.SetMyCurrentNode(route[indexOnboard]);
+                    OnUpdateMessage.Invoke(currentplayer.name + " has warpped!!");
+                    currentplayer.Warp();
+                    GameManager.instance.WarpSound.Play();
+                   
                 }
                 else//Human
                 {
@@ -102,11 +107,16 @@ public class TileNode : MonoBehaviour
                 break;
         }
 
+        //stop here if needed
+        if(!continueTurn)
+        {
+            return;
+        }
 
         //if not a human player then wait 2seconds before continuing
         if (!playerIsHuman)
         {
-            Invoke("ContinueGame", 2f);
+            Invoke("ContinueGame", GameManager.instance.secondsBetweenTurns);
         }
         else
         {
@@ -124,55 +134,7 @@ public class TileNode : MonoBehaviour
         GameManager.instance.SwitchPlayer();
     }
 
-    void DoWarp(int steps, Player player)
-    {
-        StartCoroutine(WarpPlayer(steps, player));
-    }
+    
+    
 
-    void testWarp()
-    {
-        GameObject tokenToMove = player.MyToken;
-        tokenToMove.transform.position = gameManager.teleportDestination.position;
-    }
-
-    //------------------------------------------------------------------------------------------------------------------------
-
-    IEnumerator WarpPlayer(int steps, Player player)
-    {
-        int stepsLeft = steps;
-        GameObject tokenToMove = player.MyToken;
-        int indexOnboard = route.IndexOf(player.MyTileNode); //what node the player is on
-
-        while (stepsLeft > 0)
-        {
-            indexOnboard++;
-
-            //get start and end position
-            Vector3 startPos = tokenToMove.transform.position;
-            Vector3 endPos = route[indexOnboard].transform.position;
-
-            //perform move
-            while (MoveToNextNode(tokenToMove, endPos, 15))
-            {
-                yield return null;
-            }
-
-            
-
-            stepsLeft--;
-
-        }
-        //set new node on current player
-        player.SetMyCurrentNode(route[indexOnboard]);
-
-
-
-    }
-
-    //------------------------------------------------------------------------------------------------------------------------
-
-    bool MoveToNextNode(GameObject tokenToMove, Vector3 endPos, float speed)
-    {
-        return endPos != (tokenToMove.transform.position = Vector3.MoveTowards(tokenToMove.transform.position, endPos, speed * Time.deltaTime));
-    }
 }
