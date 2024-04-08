@@ -66,7 +66,7 @@ public class Player
 
         warpPlayer = true;
 
-        if (currentnode == Board.instance.route[3])
+        if (currentnode == Board.instance.route[4])
         {
             int randomWarp = Random.Range(0, 3);
             Debug.Log("Player is picking warp location");
@@ -74,20 +74,20 @@ public class Player
             switch (randomWarp)
             {
                 case 0:
-                    myToken.transform.position = Board.instance.route[11].transform.position;
-                    currentnode = Board.instance.route[11];
+                    myToken.transform.position = Board.instance.route[12].transform.position;
+                    currentnode = Board.instance.route[12];
                     Debug.Log("Warp11");
 
                     break;
                 case 1:
-                    myToken.transform.position = Board.instance.route[19].transform.position;
-                    currentnode = Board.instance.route[19];
+                    myToken.transform.position = Board.instance.route[20].transform.position;
+                    currentnode = Board.instance.route[20];
                     Debug.Log("Warp19");
 
                     break;
                 case 2:
-                    myToken.transform.position = Board.instance.route[27].transform.position;
-                    currentnode = Board.instance.route[27];
+                    myToken.transform.position = Board.instance.route[28].transform.position;
+                    currentnode = Board.instance.route[28];
                     Debug.Log("Warp27");
 
                     break;
@@ -98,67 +98,67 @@ public class Player
             }
         }
 
-        else if (currentnode == Board.instance.route[11])
+        else if (currentnode == Board.instance.route[12])
         {
             int randomWarp = Random.Range(0, 2);
 
             switch (randomWarp)
             {
                 case 0:
-                    myToken.transform.position = Board.instance.route[3].transform.position;
-                    currentnode = Board.instance.route[3];
+                    myToken.transform.position = Board.instance.route[4].transform.position;
+                    currentnode = Board.instance.route[4];
                     break;
                 case 1:
-                    myToken.transform.position = Board.instance.route[19].transform.position;
-                    currentnode = Board.instance.route[19];
+                    myToken.transform.position = Board.instance.route[20].transform.position;
+                    currentnode = Board.instance.route[20];
                     break;
                 case 2:
-                    myToken.transform.position = Board.instance.route[27].transform.position;
-                    currentnode = Board.instance.route[27];
+                    myToken.transform.position = Board.instance.route[28].transform.position;
+                    currentnode = Board.instance.route[28];
                     break;
 
             }
         }
 
-        else if (currentnode == Board.instance.route[19])
+        else if (currentnode == Board.instance.route[20])
         {
             int randomWarp = Random.Range(0, 2);
 
             switch (randomWarp)
             {
                 case 0:
-                    myToken.transform.position = Board.instance.route[11].transform.position;
-                    currentnode = Board.instance.route[11];
+                    myToken.transform.position = Board.instance.route[12].transform.position;
+                    currentnode = Board.instance.route[12];
                     break;
                 case 1:
-                    myToken.transform.position = Board.instance.route[3].transform.position;
-                    currentnode = Board.instance.route[3];
+                    myToken.transform.position = Board.instance.route[4].transform.position;
+                    currentnode = Board.instance.route[4];
                     break;
                 case 2:
-                    myToken.transform.position = Board.instance.route[27].transform.position;
-                    currentnode = Board.instance.route[27];
+                    myToken.transform.position = Board.instance.route[28].transform.position;
+                    currentnode = Board.instance.route[28];
                     break;
 
             }
         }
 
-        else if (currentnode == Board.instance.route[27])
+        else if (currentnode == Board.instance.route[28])
         {
             int randomWarp = Random.Range(0, 2);
 
             switch (randomWarp)
             {
                 case 0:
-                    myToken.transform.position = Board.instance.route[11].transform.position;
-                    currentnode = Board.instance.route[11];
+                    myToken.transform.position = Board.instance.route[12].transform.position;
+                    currentnode = Board.instance.route[12];
                     break;
                 case 1:
-                    myToken.transform.position = Board.instance.route[19].transform.position;
-                    currentnode = Board.instance.route[19];
+                    myToken.transform.position = Board.instance.route[20].transform.position;
+                    currentnode = Board.instance.route[20];
                     break;
                 case 2:
-                    myToken.transform.position = Board.instance.route[3].transform.position;
-                    currentnode = Board.instance.route[3];
+                    myToken.transform.position = Board.instance.route[4].transform.position;
+                    currentnode = Board.instance.route[4];
                     break;
 
             }

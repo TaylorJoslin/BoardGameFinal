@@ -130,7 +130,6 @@ public class TileNode : MonoBehaviour
             OnShowHumanPanel.Invoke(true,false,true);
         }
     }
-
     void ContinueGame()
     {
         //IF LAST ROLL WAS A DOUBLE
@@ -141,7 +140,8 @@ public class TileNode : MonoBehaviour
         GameManager.instance.SwitchPlayer();
     }
 
-    
-    
+
+
+
 
 }

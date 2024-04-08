@@ -4,5 +4,9 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Alt Board1.unity
+    guid: 979fb9259c9df3741985fb210ee129eb
   m_configObjects: {}
+  m_UseUCBPForAssetBundles: 0

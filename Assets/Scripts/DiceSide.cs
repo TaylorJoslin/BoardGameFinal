@@ -6,6 +6,7 @@ public class DiceSide : MonoBehaviour
 {
     bool onGround;
     public int sideValue;
+    public bool OnGround => onGround;    //() { return onGround; }
     [SerializeField] GameObject diceImage1;
 
 
@@ -32,5 +33,5 @@ public class DiceSide : MonoBehaviour
         }
     }
 
-    public bool OnGround() { return onGround; }
+    
 }

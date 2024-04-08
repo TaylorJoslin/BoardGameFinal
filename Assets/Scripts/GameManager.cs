@@ -20,18 +20,23 @@ public class GameManager : MonoBehaviour
     [SerializeField] Transform playerPanel; //for player info prefab
     [SerializeField] List<GameObject> playerTokenList = new List<GameObject>();
     [Header("Audio")]
-    
     public AudioSource WarpSound;
+    [Header("Dice")]
+    [SerializeField] DiceRoll dice1;
+    [SerializeField] DiceRoll dice2;
 
 
 
 
     //dice info
-    int[] rolledDice;
+    List<int > rolledDice = new List<int>();
     bool rolledADouble;
 
     //pass start to get money
     public int GetGoMoney => goMoney;
+
+    //dice rolled
+
 
     //message system
     public delegate void UpdateMessage(string message);
@@ -51,13 +56,21 @@ public class GameManager : MonoBehaviour
        Inititialize();
         if (playerList[currentPlayer].playertype == Player.PlayerType.AI)
         {
-            Rolldice();
+            RollPhysicalDice();
+            //Rolldice();
         }
         
     }
 
+    
+
+
     void Inititialize()
     {
+
+
+
+
         //create all players
         for (int i = 0; i < playerList.Count; i++)
         {
@@ -82,15 +95,35 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void Rolldice() //press button for human input or auto for ai
+    public void RollPhysicalDice()
+    {
+        rolledDice.Clear();
+        dice1.RollDice();
+        dice2.RollDice();
+    }
+
+    public void ReportDiceRolled(int diceValue)
+    {
+        rolledDice.Add(diceValue);
+
+        //used only for if doubles are rolled
+        if (rolledDice.Count == 2)
+        {
+            Rolldice();
+        }
+    }
+
+
+
+     void Rolldice() //press button for human input or auto for ai
     {
         bool allowdToMove = true;
 
         //reset last roll
-        rolledDice = new int[2];
-        //store rolled dice
-        rolledDice[0] = 2;//Random.Range(1, 7); //will need code to wait for physical dice
-        rolledDice[1] = 2;//Random.Range(1, 7);
+        //rolledDice = new int[2];
+        ////store rolled dice
+        //rolledDice[0] = 2;//Random.Range(1, 7); //will need code to wait for physical dice
+        //rolledDice[1] = 2;//Random.Range(1, 7);
         Debug.Log("rolled dice are: " + rolledDice[0] + " & " + rolledDice[1]);
 
         
@@ -153,7 +186,8 @@ public class GameManager : MonoBehaviour
         //IF IS AI
         if (playerList[currentPlayer].playertype == Player.PlayerType.AI)
         {
-            Rolldice();
+            RollPhysicalDice();
+            //Rolldice();
             OnShowHumanPanel.Invoke(false, false, false);
         }
         else //IF HUMAN SHOW UI
@@ -164,7 +198,11 @@ public class GameManager : MonoBehaviour
 
     }
 
+    public List<int> LastRolledDice => rolledDice;
+
     
+
+
 
 
 }

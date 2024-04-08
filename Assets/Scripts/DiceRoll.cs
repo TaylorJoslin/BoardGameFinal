@@ -48,18 +48,18 @@ public class DiceRoll : MonoBehaviour
 
     public void RollDice()
     {
-        
+        Reset();
         if (!thrown && !hasLanded)
         {
             thrown = true;
             rb.useGravity = true;
             rb.isKinematic = false;
-            rb.AddTorque(Random.Range(0, 500), Random.Range(0, 500), Random.Range(0, 500));
+            rb.AddTorque(Random.Range(100000, 200000), Random.Range(100000, 200000), Random.Range(100000, 200000));
         }
-        else if (thrown && hasLanded)
-        {
-            Reset();
-        }
+        //else if (thrown && hasLanded)
+        //{
+        //    Reset();
+        //}
     }
 
     public void Reset()
@@ -86,11 +86,16 @@ public class DiceRoll : MonoBehaviour
         diceValue = 0;
         foreach (DiceSide side in diceSides)
         {
-            if (side.OnGround())
+            if (side.OnGround)
             {
                 diceValue = side.sideValue;
                 Debug.Log(diceValue + " has been rolled!");
+                
+                break;
             }
         }
+        GameManager.instance.ReportDiceRolled(diceValue);
+        Debug.Log(" Dice have been reported");
+
     }
 }
