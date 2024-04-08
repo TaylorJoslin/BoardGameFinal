@@ -37,6 +37,10 @@ public class GameManager : MonoBehaviour
     public delegate void UpdateMessage(string message);
     public static UpdateMessage OnUpdateMessage;
 
+    //human panel
+    public delegate void ShowHumanPanel(bool activatePanel, bool activateRollDice, bool acitaveEndTurn);
+    public static ShowHumanPanel OnShowHumanPanel;
+
     void Awake()
     {
         instance = this;
@@ -67,6 +71,15 @@ public class GameManager : MonoBehaviour
 
             playerList[i].Inititalize(gameBoard.route[0], startMoney, info,newtoken);  //gameBoard.route[0] gets a certain node on board  can use for warping
         }
+
+        if (playerList[currentPlayer].playertype == Player.PlayerType.Human)
+        {
+            OnShowHumanPanel.Invoke(true, true, false); //if Human show panel
+        }
+        else
+        {
+            OnShowHumanPanel.Invoke(false, false, false); //if AI hide panel
+        }
     }
 
     public void Rolldice() //press button for human input or auto for ai
@@ -76,8 +89,8 @@ public class GameManager : MonoBehaviour
         //reset last roll
         rolledDice = new int[2];
         //store rolled dice
-        rolledDice[0] = Random.Range(1, 7);//Random.Range(1, 7); //will need code to wait for physical dice
-        rolledDice[1] = Random.Range(1, 7);//Random.Range(1, 7);
+        rolledDice[0] = 2;//Random.Range(1, 7); //will need code to wait for physical dice
+        rolledDice[1] = 2;//Random.Range(1, 7);
         Debug.Log("rolled dice are: " + rolledDice[0] + " & " + rolledDice[1]);
 
         
@@ -98,15 +111,18 @@ public class GameManager : MonoBehaviour
             OnUpdateMessage.Invoke(playerList[currentPlayer].name + " has rolled <color=red>" + rolledDice[0] + "</color> and a <color=red>" + rolledDice[1] + "</color>");
             StartCoroutine(DelayBeforeMove(rolledDice[0] + rolledDice[1]));
         }
-        else
+        else //Switc Player
         {
             OnUpdateMessage.Invoke(playerList[currentPlayer].name + " Turn has ended");
             StartCoroutine(DelayBetweenSwitchPlayer());
         }
-       
+
 
         //show or hide ui
-
+        if (playerList[currentPlayer].playertype == Player.PlayerType.Human)
+        {
+            OnShowHumanPanel.Invoke(true,false,false);
+        }
     } 
 
     IEnumerator DelayBeforeMove(int rolledDice)
@@ -138,9 +154,14 @@ public class GameManager : MonoBehaviour
         if (playerList[currentPlayer].playertype == Player.PlayerType.AI)
         {
             Rolldice();
+            OnShowHumanPanel.Invoke(false, false, false);
         }
+        else //IF HUMAN SHOW UI
+        {
+            OnShowHumanPanel.Invoke(true, true, false);
+        }
+        
 
-        //IF HUMAN SHOW UI
     }
 
     

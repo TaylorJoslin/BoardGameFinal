@@ -48,6 +48,8 @@ public class Player
         newNode.PlayerLandedOnNode(this);
         
         //IF AI PLAYER
+
+        //If Human Player
     }
 
     public void CollectMoney(int amount)
@@ -67,20 +69,27 @@ public class Player
         if (currentnode == Board.instance.route[3])
         {
             int randomWarp = Random.Range(0, 3);
+            Debug.Log("Player is picking warp location");
 
             switch (randomWarp)
             {
                 case 0:
                     myToken.transform.position = Board.instance.route[11].transform.position;
                     currentnode = Board.instance.route[11];
+                    Debug.Log("Warp11");
+
                     break;
                 case 1:
                     myToken.transform.position = Board.instance.route[19].transform.position;
                     currentnode = Board.instance.route[19];
+                    Debug.Log("Warp19");
+
                     break;
                 case 2:
                     myToken.transform.position = Board.instance.route[27].transform.position;
                     currentnode = Board.instance.route[27];
+                    Debug.Log("Warp27");
+
                     break;
                 default:
                            Debug.Log("Invalid something happened");

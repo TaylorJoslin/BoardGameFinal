@@ -22,6 +22,10 @@ public class TileNode : MonoBehaviour
     public delegate void UpdateMessage(string message);
     public static UpdateMessage OnUpdateMessage;
 
+    //human panel
+    public delegate void ShowHumanPanel(bool activatePanel, bool activateRollDice, bool acitaveEndTurn);
+    public static ShowHumanPanel OnShowHumanPanel;
+
     public TileNodeType tilenodetype;
     [SerializeField] internal new string name;
 
@@ -89,7 +93,9 @@ public class TileNode : MonoBehaviour
                 }
                 else//Human
                 {
-
+                    OnUpdateMessage.Invoke(currentplayer.name + " has warpped!!");
+                    currentplayer.Warp();
+                    GameManager.instance.WarpSound.Play();
                 }
                 break;
 
@@ -121,6 +127,7 @@ public class TileNode : MonoBehaviour
         else
         {
             //SHOW UI
+            OnShowHumanPanel.Invoke(true,false,true);
         }
     }
 

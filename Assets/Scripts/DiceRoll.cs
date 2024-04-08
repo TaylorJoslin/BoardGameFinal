@@ -8,9 +8,6 @@ public class DiceRoll : MonoBehaviour
      [SerializeField] bool hasLanded;
     [SerializeField] bool thrown;
 
-    
-
-
     Vector3 startPosition;
 
     public int diceValue;
@@ -22,6 +19,7 @@ public class DiceRoll : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         startPosition = transform.position;
         rb.useGravity = false;
+        rb.isKinematic = true;
 
         
     }
@@ -35,14 +33,14 @@ public class DiceRoll : MonoBehaviour
 
 
 
-        if (rb.IsSleeping() && !hasLanded && thrown)
+        if (rb.IsSleeping() && !hasLanded && thrown) //dice is no longer moving
         {
             hasLanded = true;
             rb.useGravity = false;
             rb.isKinematic = true;
             SideValueCheck();
         }
-        else if (rb.IsSleeping() && hasLanded && diceValue == 0)
+        else if (rb.IsSleeping() && hasLanded && diceValue == 0) //if dice gets stuck then reroll
         {
             RollAgain();
         }
@@ -55,6 +53,7 @@ public class DiceRoll : MonoBehaviour
         {
             thrown = true;
             rb.useGravity = true;
+            rb.isKinematic = false;
             rb.AddTorque(Random.Range(0, 500), Random.Range(0, 500), Random.Range(0, 500));
         }
         else if (thrown && hasLanded)
@@ -69,7 +68,7 @@ public class DiceRoll : MonoBehaviour
         thrown = false;
         hasLanded = false;
         rb.useGravity = false;
-        rb.isKinematic = false;
+        rb.isKinematic = true;
         
 
     }
@@ -78,6 +77,7 @@ public class DiceRoll : MonoBehaviour
         Reset();
         thrown = true;
         rb.useGravity = true;
+        rb.isKinematic = false;
         rb.AddTorque(Random.Range(0, 500), Random.Range(0, 500), Random.Range(0, 500));
     }
 
