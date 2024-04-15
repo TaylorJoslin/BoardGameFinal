@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class Player
+public class Player 
 {
    public enum PlayerType
     {
@@ -16,6 +16,11 @@ public class Player
     int money;
     TileNode currentnode;
     bool warpPlayer;
+
+    //Brian's addition
+    public Start_Battle battle;
+    
+    //
 
     [SerializeField] GameObject myToken; //token player plays with
     [SerializeField] List<Heroes> myHeroes = new List<Heroes>();
@@ -30,6 +35,7 @@ public class Player
     //message system
     public delegate void UpdateMessage(string message);
     public static UpdateMessage OnUpdateMessage;
+
 
     public void Inititalize(TileNode startNode, int startMoney, PlayerInfo info, GameObject token)
     {
@@ -166,8 +172,15 @@ public class Player
 
     }
 
+    public void Battletile()
+    {
+        Debug.Log("battle start");
+    }
+
     public void MoveBackwards3()
     {
         Board.instance.MovePlayertoken(-3, this); //moves the player backwards (x steps, current player)
     }
+
+
 }

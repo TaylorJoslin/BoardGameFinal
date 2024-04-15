@@ -17,6 +17,7 @@ public enum TileNodeType
 public class TileNode : MonoBehaviour
 {
     public Player owner;
+    public Start_Battle battle;
 
     //message system
     public delegate void UpdateMessage(string message);
@@ -64,7 +65,8 @@ public class TileNode : MonoBehaviour
 
                 }else//Human
                 {
-
+                    OnUpdateMessage.Invoke(currentplayer.name + " is going to battle");
+                    currentplayer.Battletile();
                 }
                 break;
 

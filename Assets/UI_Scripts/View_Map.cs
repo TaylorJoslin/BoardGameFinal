@@ -8,8 +8,11 @@ public class View_Map : MonoBehaviour
 
     public float dragSpeed = .1f;
     private Vector3 dragOrigin;
+
     public GameObject button;
     public GameObject GoBack;
+    public GameObject PlayerListUI;
+    public GameObject TextUI;
 
     public void Update()
     {
@@ -45,6 +48,8 @@ public class View_Map : MonoBehaviour
     {
         button.SetActive(false);
         GoBack.SetActive(true);
+        PlayerListUI.SetActive(false);
+        TextUI.SetActive(false);
         useCameraDrage = true;
     }
 
@@ -52,6 +57,8 @@ public class View_Map : MonoBehaviour
     {
         GoBack.SetActive(false);
         button.SetActive(true);
+        PlayerListUI.SetActive(true);
+        TextUI.SetActive(true);
         useCameraDrage = false;
     }
 }
