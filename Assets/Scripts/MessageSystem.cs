@@ -15,6 +15,7 @@ public class MessageSystem : MonoBehaviour
         GameManager.OnUpdateMessage += RecieveMessage;
         Player.OnUpdateMessage += RecieveMessage;
         TileNode.OnUpdateMessage += RecieveMessage;
+        Combat_test.OnUpdateMessage += RecieveMessage;
     }
 
     void OnDisable()
@@ -22,6 +23,7 @@ public class MessageSystem : MonoBehaviour
         GameManager.OnUpdateMessage -= RecieveMessage;
         Player.OnUpdateMessage -= RecieveMessage;
         TileNode.OnUpdateMessage -= RecieveMessage;
+        Combat_test.OnUpdateMessage -= RecieveMessage;
     }
 
     void RecieveMessage(string _message)

@@ -175,6 +175,9 @@ public class Player
     public void Battletile()
     {
         Debug.Log("battle start");
+
+        Start_Battle.instance.Battle();
+      
     }
 
     public void MoveBackwards3()

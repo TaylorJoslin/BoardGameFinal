@@ -30,7 +30,7 @@ public class Combat_test : MonoBehaviour
     public TMP_Text MonsterATKUI;
     public TMP_Text noti;
     public TMP_Text notiDMG;
-    //public GameObject PlayerUI;
+    //public GameObject PlayerUI;`
     //public GameObject MonsterUI;
     public GameObject Noti;
     public GameObject NotiDMG;
@@ -40,6 +40,10 @@ public class Combat_test : MonoBehaviour
     private int PlayerATK;
     //public Warrior warrior;
     //private player Play;
+
+    //message system
+    public delegate void UpdateMessage(string message);
+    public static UpdateMessage OnUpdateMessage;
 
     public void Start()
     {
@@ -66,6 +70,7 @@ public class Combat_test : MonoBehaviour
         SamButton.SetActive(false);
         ATKbutton.SetActive(true);
         test = 1;
+        OnUpdateMessage.Invoke("player chose War");
         Debug.Log("player chose War");
         PlayerHP = warrior.playerHP;
         PlayerDEF = warrior.playerDEF;

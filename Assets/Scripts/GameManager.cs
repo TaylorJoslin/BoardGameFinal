@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour
     [Header("Dice")]
     [SerializeField] DiceRoll dice1;
     [SerializeField] DiceRoll dice2;
+    [SerializeField] Camera Battle_Cam;
 
 
 
