@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Start_Battle : MonoBehaviour
 {
+    //this will switch to the battle  
     public GameObject Battle_Cam;
     public GameObject Board_Cam;
     public void Battle()
