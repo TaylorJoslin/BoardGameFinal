@@ -41,9 +41,21 @@ public class Combat_test : MonoBehaviour
     //public Warrior warrior;
     //private player Play;
 
+    private int initialPlayerHP; // Store initial player HP
+    private int initialPlayerDEF; // Store initial player DEF
+    private int initialPlayerATK; // Store initial player ATK
+
     //message system
     public delegate void UpdateMessage(string message);
     public static UpdateMessage OnUpdateMessage;
+
+    private void Awake()
+    {
+        // Store initial player stats
+        initialPlayerHP = warrior.playerHP;
+        initialPlayerDEF = warrior.playerDEF;
+        initialPlayerATK = warrior.playerATK;
+    }
 
     public void Start()
     {
@@ -198,6 +210,11 @@ public class Combat_test : MonoBehaviour
         ATKbutton.SetActive(false);
         NotiDMG.SetActive(false );
         noti.text = ("You win :)");
+        Start_Battle.instance.Battle_Cam.SetActive(false);
+        Start_Battle.instance.Board_Cam.SetActive(true);
+        Start_Battle.instance.HumanPanel_UI.SetActive(true);
+        Start_Battle.instance.Battle_UI.SetActive(false);
+        ResetBattle();
 
     }
 
@@ -207,5 +224,35 @@ public class Combat_test : MonoBehaviour
         ATKbutton.SetActive(false);
         NotiDMG.SetActive(false);
         noti.text = ("You lose :(");
+        Start_Battle.instance.Battle_Cam.SetActive(false);
+        Start_Battle.instance.Board_Cam.SetActive(true);
+        Start_Battle.instance.HumanPanel_UI.SetActive(true);
+        Start_Battle.instance.Battle_UI.SetActive(false);
+        ResetBattle();
+    }
+
+    public void ResetBattle()
+    {
+        // Reset player stats to initial values
+        PlayerHP = initialPlayerHP;
+        PlayerDEF = initialPlayerDEF;
+        PlayerATK = initialPlayerATK;
+
+        // Reset UI elements
+        PlayerHPUI.text = ("Player's HP: " + PlayerHP);
+        PlayerDEFUI.text = ("Player's DEF: " + PlayerDEF);
+        PlayerATKUI.text = ("Player's ATK: " + PlayerATK);
+        MonsterHPUI.text = ("Monster's HP: " + Monster.monsterHP);
+        MonsterDEFUI.text = ("Monster's DEF: " + Monster.monsterDF);
+        MonsterATKUI.text = ("Monster's ATK: " + Monster.monsterATK);
+
+        // Disable notification UI
+        Noti.SetActive(false);
+        NotiDMG.SetActive(false);
+
+        // Enable necessary buttons
+        WarButton.SetActive(true);
+        SamButton.SetActive(true);
+        ATKbutton.SetActive(false);
     }
 }
