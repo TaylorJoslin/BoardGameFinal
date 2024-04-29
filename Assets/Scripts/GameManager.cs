@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] DiceRoll dice1;
     [SerializeField] DiceRoll dice2;
     [SerializeField] Camera Battle_Cam;
+    
 
 
 
@@ -53,6 +54,8 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        
+
        Inititialize();
         if (playerList[currentPlayer].playertype == Player.PlayerType.AI)
         {

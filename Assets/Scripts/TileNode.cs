@@ -110,7 +110,8 @@ public class TileNode : MonoBehaviour
                 }
                 else//Human
                 {
-
+                    OnUpdateMessage.Invoke(currentplayer.name + " enters the Shop");
+                    currentplayer.openPlayerShop();
                 }
                 break;
         }

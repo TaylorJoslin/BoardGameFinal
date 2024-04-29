@@ -180,6 +180,11 @@ public class Player
       
     }
 
+    public void openPlayerShop()
+    {
+        Shop.instance.OpenShop();
+    }
+
     public void MoveBackwards3()
     {
         Board.instance.MovePlayertoken(-3, this); //moves the player backwards (x steps, current player)
