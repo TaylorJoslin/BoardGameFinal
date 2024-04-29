@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class Combat_test : MonoBehaviour
 {
+    //Combat system: By Brian and some edits made by Taylor
     //buttons
     public GameObject War;
     public GameObject Sam;
@@ -231,6 +232,7 @@ public class Combat_test : MonoBehaviour
         ResetBattle();
     }
 
+    //Taylor's Code
     public void ResetBattle()
     {
         // Reset player stats to initial values

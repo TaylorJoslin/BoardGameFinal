@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class Warrior : MonoBehaviour
 {
+    //Stats for Warrior
+    //By Brian
     public int playerHP;
     public int playerATK;
     public int playerDEF;

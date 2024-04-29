@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class View_Map : MonoBehaviour
 {
+    //Code used to move around to look at map. only works when the button "view map" is pressed
+    //Code by Brian
     [SerializeField] private bool useCameraDrage = false;
 
     public float dragSpeed = .1f;

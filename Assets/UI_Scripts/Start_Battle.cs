@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class Start_Battle : MonoBehaviour
 {
+    //Code to switch to the battle (may not have been used)
+    //By Brian
     public static Start_Battle instance;
 
     //this will switch to the battle  

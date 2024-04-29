@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class Samuari : MonoBehaviour
 {
+    //Samurai stats
+    //By Brian
     public int playerHP;
     public int playerATK;
     public int playerDEF;
