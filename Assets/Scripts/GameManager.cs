@@ -24,7 +24,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] DiceRoll dice1;
     [SerializeField] DiceRoll dice2;
     [SerializeField] Camera Battle_Cam;
-    
+    [SerializeField] GameObject shop;
+
 
 
 
@@ -125,8 +126,8 @@ public class GameManager : MonoBehaviour
         //reset last roll
         //rolledDice = new int[2];
         ////store rolled dice
-        //rolledDice[0] = 2;//Random.Range(1, 7); //will need code to wait for physical dice
-        //rolledDice[1] = 2;//Random.Range(1, 7);
+        //rolledDice[0] = 4;//Random.Range(1, 7); //will need code to wait for physical dice
+        //rolledDice[1] =4;//Random.Range(1, 7);
         Debug.Log("rolled dice are: " + rolledDice[0] + " & " + rolledDice[1]);
 
         
@@ -159,9 +160,22 @@ public class GameManager : MonoBehaviour
         {
             OnShowHumanPanel.Invoke(true,false,false);
         }
-    } 
+    }
 
-    IEnumerator DelayBeforeMove(int rolledDice)
+    public void OpenShop()
+    {
+        shop.SetActive(true);
+        Debug.Log("Shop UI is Open");
+    }
+
+    public void CloseShop()
+    {
+        shop.SetActive(false);
+    }
+
+   
+
+IEnumerator DelayBeforeMove(int rolledDice)
     {
         yield return new WaitForSeconds(secondsBetweenTurns);
         //if we are allowed to move
@@ -200,6 +214,8 @@ public class GameManager : MonoBehaviour
         
 
     }
+
+
 
     public List<int> LastRolledDice => rolledDice;
 

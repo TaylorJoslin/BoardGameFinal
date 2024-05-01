@@ -17,7 +17,7 @@ public enum TileNodeType
 public class TileNode : MonoBehaviour
 {
     public Player owner;
-    public Start_Battle battle;
+    //public Start_Battle battle;
 
     //message system
     public delegate void UpdateMessage(string message);
@@ -79,7 +79,8 @@ public class TileNode : MonoBehaviour
                 }
                 else//Human
                 {
-
+                    OnUpdateMessage.Invoke(currentplayer.name + " earned $200!!");
+                    currentplayer.CollectMoney(200);
                 }
                 break;
 
@@ -112,6 +113,7 @@ public class TileNode : MonoBehaviour
                 {
                     OnUpdateMessage.Invoke(currentplayer.name + " enters the Shop");
                     currentplayer.openPlayerShop();
+                    Debug.Log("player landed on shop");
                 }
                 break;
         }

@@ -46,6 +46,14 @@ public class Combat_test : MonoBehaviour
     private int initialPlayerDEF; // Store initial player DEF
     private int initialPlayerATK; // Store initial player ATK
 
+    private int initialSamHP;
+    private int initialSamDEF;
+    private int initialSamATK;
+
+    private int initialMonHP;
+    private int initialMonDEF;
+    private int initialMonATK;
+
     //message system
     public delegate void UpdateMessage(string message);
     public static UpdateMessage OnUpdateMessage;
@@ -56,6 +64,15 @@ public class Combat_test : MonoBehaviour
         initialPlayerHP = warrior.playerHP;
         initialPlayerDEF = warrior.playerDEF;
         initialPlayerATK = warrior.playerATK;
+
+        initialSamHP = samuari.playerHP;
+        initialSamDEF = samuari.playerDEF;
+        initialSamATK = samuari.playerATK;
+
+        initialMonHP = Monster.monsterHP;
+        initialMonATK = Monster.monsterATK;
+        initialMonDEF = Monster.monsterDF;
+        
     }
 
     public void Start()
@@ -239,6 +256,10 @@ public class Combat_test : MonoBehaviour
         PlayerHP = initialPlayerHP;
         PlayerDEF = initialPlayerDEF;
         PlayerATK = initialPlayerATK;
+
+        Monster.monsterHP = initialMonHP;
+        Monster.monsterDF = initialMonDEF;
+        Monster.monsterATK = initialMonATK;
 
         // Reset UI elements
         PlayerHPUI.text = ("Player's HP: " + PlayerHP);

@@ -23,7 +23,7 @@ public class Player
     //
 
     [SerializeField] GameObject myToken; //token player plays with
-    [SerializeField] List<Heroes> myHeroes = new List<Heroes>();
+    [SerializeField] public List<Heroes> myHeroes = new List<Heroes>();
 
     //playerinfo
     PlayerInfo myInfo;
@@ -63,6 +63,20 @@ public class Player
         money+= amount;
         myInfo.SetPlayerCash(money);
     }
+
+    public static void SpendMoney(Player player, int amount)
+    {
+        player.money -= amount;
+        player.myInfo.SetPlayerCash(player.money);
+    }
+
+    public static void AddMoney(Player player, int amount)
+    {
+        player.money += amount;
+        player.myInfo.SetPlayerCash(player.money);
+    }
+
+
 
     //----------------Warp Player-----------------
     public void Warp()
@@ -182,7 +196,13 @@ public class Player
 
     public void openPlayerShop()
     {
-        Shop.instance.OpenShop();
+        GameManager.instance.OpenShop();
+        Debug.Log("Talking to player script");
+    }
+
+    public void LandedOnEvent()
+    {
+        Shop.instance.TileEvent();
     }
 
     public void MoveBackwards3()

@@ -5,7 +5,8 @@ using UnityEngine.UI;
 
 public class Shop : MonoBehaviour
 {
-    [SerializeField] GameObject shop;
+    //[SerializeField] GameObject shop;
+    [SerializeField] Player player;
     public static Shop instance;
 
     private void Awake()
@@ -14,13 +15,47 @@ public class Shop : MonoBehaviour
     }
 
 
-    public void OpenShop()
+    //public void OpenShop()
+    //{
+    //    shop.SetActive(true);
+    //    Debug.Log("Shop UI is Open");
+    //}
+
+    //public void CloseShop()
+    //{
+    //    shop.SetActive(false);
+    //}
+
+    public void buySamurai()
     {
-        shop.SetActive(true);
+        GameManager gameManager = GameManager.instance;
+        Player currentPlayer = gameManager.playerList[gameManager.currentPlayer];
+
+        Player.SpendMoney(currentPlayer, 100);
     }
 
-    public void CloseShop()
+    public void buyWarrior()
     {
-        shop.SetActive(false);
+        GameManager gameManager = GameManager.instance;
+        Player currentPlayer = gameManager.playerList[gameManager.currentPlayer];
+
+        Player.SpendMoney(currentPlayer, 100);
+    }
+
+    public void buyPrincess()
+    {
+        GameManager gameManager = GameManager.instance;
+        Player currentPlayer = gameManager.playerList[gameManager.currentPlayer];
+
+        Player.SpendMoney(currentPlayer, 100);
+    }
+
+    public void TileEvent()
+    {
+        GameManager gameManager = GameManager.instance;
+        Player currentPlayer = gameManager.playerList[gameManager.currentPlayer];
+
+
+        Player.AddMoney(currentPlayer, 200);
     }
 }
