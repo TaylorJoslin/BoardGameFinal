@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+//code by Taylor Joslin
 public class UIShowPanel : MonoBehaviour
 {
     [SerializeField] GameObject humanPanel;

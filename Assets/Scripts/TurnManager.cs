@@ -4,6 +4,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.XR;
 
+//code by Taylor Joslin
 public class TurnManager : MonoBehaviour
 {
     bool startGame, P1Turn, P2Turn;

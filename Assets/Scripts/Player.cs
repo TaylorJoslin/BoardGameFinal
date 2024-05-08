@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+//code by Taylor Joslin
 [System.Serializable]
 public class Player 
 {

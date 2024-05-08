@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
+//code by Taylor Joslin
 public class PlayerInfo : MonoBehaviour
 {
     [SerializeField] TMP_Text playerNametext;

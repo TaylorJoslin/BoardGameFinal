@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//code by Taylor Joslin
 public class DiceSide : MonoBehaviour
 {
     bool onGround;

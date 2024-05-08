@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+//by Taylor Joslin
 public class Board : MonoBehaviour    
 {
     public static Board instance;

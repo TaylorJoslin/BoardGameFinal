@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 using UnityEngine;
 
+//code by Taylor Joslin
 public class Stone : MonoBehaviour
 {
     public Route currentRoute;
