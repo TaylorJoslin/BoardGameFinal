@@ -31,7 +31,7 @@ public class Shop : MonoBehaviour
         GameManager gameManager = GameManager.instance;
         Player currentPlayer = gameManager.playerList[gameManager.currentPlayer];
 
-        Player.SpendMoney(currentPlayer, 100);
+        Player.SpendMoney(currentPlayer, 300);
     }
 
     public void buyWarrior()
@@ -47,7 +47,15 @@ public class Shop : MonoBehaviour
         GameManager gameManager = GameManager.instance;
         Player currentPlayer = gameManager.playerList[gameManager.currentPlayer];
 
-        Player.SpendMoney(currentPlayer, 100);
+        Player.SpendMoney(currentPlayer, 1000);
+    }
+
+    public void buySummoner()
+    {
+        GameManager gameManager = GameManager.instance;
+        Player currentPlayer = gameManager.playerList[gameManager.currentPlayer];
+
+        Player.SpendMoney(currentPlayer, 500);
     }
 
     public void TileEvent()
